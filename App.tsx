@@ -5,6 +5,12 @@ import RouteStatsCard from './components/RouteStatsCard';
 import ProfileCard from './components/ProfileCard';
 import LocationImageCard from './components/LocationImageCard';
 import LocationDetails from './components/LocationDetails';
+import ClientsView from './components/ClientsView';
+import ProjectsView from './components/ProjectsView';
+import RequestsView from './components/RequestsView';
+import MediaView from './components/MediaView';
+import AssistantView from './components/AssistantView';
+import MessagesView from './components/MessagesView';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -36,16 +42,18 @@ export default function App() {
             </div>
           </div>
         );
+      case 'clients':
+        return <ClientsView />;
+      case 'projects':
+        return <ProjectsView />;
       case 'requests':
-        return (
-          <div className="flex-1 flex flex-col items-center justify-center h-full text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
-             <div className="bg-white/10 backdrop-blur-md border border-white/10 p-12 rounded-3xl shadow-xl max-w-md w-full mx-auto">
-               <h2 className="text-3xl font-light text-white mb-2">Requests</h2>
-               <div className="w-16 h-1 bg-[#fcdab6] mx-auto mb-6 rounded-full"></div>
-               <p className="text-white/60 text-lg">Coming Soon</p>
-             </div>
-          </div>
-        );
+        return <RequestsView />;
+      case 'media':
+        return <MediaView />;
+      case 'assistant':
+        return <AssistantView />;
+      case 'messages':
+        return <MessagesView />;
       default:
         return (
           <div className="flex-1 flex flex-col items-center justify-center h-full text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -65,10 +73,11 @@ export default function App() {
       <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col p-6 pl-0 overflow-y-auto">
+      <main className="flex-1 flex flex-col p-6 pl-0 overflow-hidden">
         <Header title={getTitle(activeSection)} />
-
-        {renderContent()}
+        <div className="flex-1 overflow-y-auto no-scrollbar pr-2">
+            {renderContent()}
+        </div>
       </main>
     </div>
   );
